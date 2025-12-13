@@ -22,12 +22,15 @@
         }
 
         /* HERO SECTION CONFIGURATION */
-        .hero-section {
-            /* REPLACE 'hero-bg.jpg' WITH YOUR ACTUAL IMAGE FILENAME */
-            background-image: url('images/hero-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+        /* Desktop: Uses Background Image. Mobile: handled via HTML structure below */
+        @media (min-width: 768px) {
+            .hero-section {
+                /* REPLACE 'hero-bg.jpg' WITH YOUR ACTUAL IMAGE FILENAME */
+                background-image: url('images/hero-bg.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
         }
 
         /* COMIC BUTTONS */
@@ -65,27 +68,28 @@
     </style>
 </head>
 
-<body class="antialiased text-slate-900">
+<body class="antialiased text-slate-900 bg-white">
 
-    <nav class="fixed top-4 left-0 right-0 z-50 px-4">
+    <nav class="fixed top-2 md:top-4 left-0 right-0 z-50 px-2 md:px-4">
         <div
-            class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center bg-white/70 backdrop-blur-md px-6 py-3 rounded-2xl border-2 border-white/40 shadow-xl gap-4 md:gap-0">
+            class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center bg-white/90 backdrop-blur-md px-4 py-3 md:px-6 md:py-3 rounded-2xl border-2 border-slate-100 shadow-xl gap-3 md:gap-0">
 
-            <div class="font-black text-2xl tracking-tighter italic text-slate-900">
+            <div class="font-black text-xl md:text-2xl tracking-tighter italic text-slate-900">
                 $STEVE
             </div>
 
             <button onclick="copyToClipboard()" id="caButton"
-                class="group flex items-center gap-2 bg-slate-100 hover:bg-white border-2 border-slate-200 px-4 py-1.5 rounded-full transition cursor-pointer shadow-sm hover:shadow-md">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">CA:</span>
-                <span class="text-xs font-mono font-bold text-slate-800 md:hidden">8x...3j9</span> <span
+                class="group flex items-center gap-2 bg-slate-50 hover:bg-white border-2 border-slate-200 px-3 py-1.5 md:px-4 rounded-full transition cursor-pointer shadow-sm hover:shadow-md w-full md:w-auto justify-center">
+                <span class="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest">CA:</span>
+                <span class="text-[10px] md:text-xs font-mono font-bold text-slate-800 md:hidden">8x...3j9</span>
+                <span
                     class="text-xs font-mono font-bold text-slate-800 hidden md:block">8x3...YOUR...CA...ADDRESS...HERE...3j9</span>
-                <svg id="copyIcon" class="w-4 h-4 fill-slate-400 group-hover:fill-blue-600 transition"
+                <svg id="copyIcon" class="w-3 h-3 md:w-4 md:h-4 fill-slate-400 group-hover:fill-blue-600 transition"
                     viewBox="0 0 24 24">
                     <path
                         d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
                 </svg>
-                <svg id="checkIcon" class="w-4 h-4 fill-green-500 hidden" viewBox="0 0 24 24">
+                <svg id="checkIcon" class="w-3 h-3 md:w-4 md:h-4 fill-green-500 hidden" viewBox="0 0 24 24">
                     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                 </svg>
             </button>
@@ -112,32 +116,44 @@
         </div>
     </nav>
 
-    <section class="hero-section min-h-screen flex items-center pt-20 px-6 relative">
-        <div class="absolute inset-0 bg-gradient-to-r from-white/80 via-white/40 to-transparent pointer-events-none">
+    <section class="hero-section relative pt-28 pb-12 md:min-h-screen md:flex md:items-center md:pt-20 md:pb-0">
+
+        <div class="block md:hidden relative w-full mb-0">
+            <img src="images/hero-bg.jpg" alt="Hero Background" class="w-full h-auto object-cover max-h-[500px]">
+
+            <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent">
+            </div>
         </div>
 
-        <div class="max-w-6xl mx-auto w-full relative z-10">
-            <div class="max-w-xl space-y-6">
+        <div
+            class="absolute inset-0 bg-gradient-to-r from-white/80 via-white/40 to-transparent pointer-events-none hidden md:block">
+        </div>
+
+        <div class="max-w-6xl mx-auto w-full relative z-10 px-6 -mt-12 md:mt-0 md:px-6">
+            <div class="max-w-xl space-y-6 text-center md:text-left">
                 <div
                     class="inline-block bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-2 shadow-lg">
                     Solana's 2026 Reset
                 </div>
-                <h1 class="text-5xl lg:text-7xl font-black leading-[1.1] uppercase drop-shadow-sm">
+
+                <h1 class="text-4xl md:text-5xl lg:text-7xl font-black leading-[1.1] uppercase drop-shadow-sm">
                     New Year,<br>
                     <span class="text-blue-600">New Me.</span><br>
                     The Year of Steve Begins Now.
                 </h1>
-                <p class="text-lg font-bold text-slate-800 leading-relaxed drop-shadow-sm">
+
+                <p class="text-base md:text-lg font-bold text-slate-800 leading-relaxed drop-shadow-sm">
                     $STEVE isn’t just a meme. He’s the global reset button we all secretly wanted.
                     2026 is the year STEVE rebuilds himself from zero.
                 </p>
-                <div class="pt-4 flex gap-4">
+
+                <div class="pt-4 flex flex-col md:flex-row gap-4">
                     <button onclick="window.location.href='https://t.me/degensteveonsol'"
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-black text-lg py-4 px-10 rounded-full btn-comic uppercase tracking-wider transform transition hover:-translate-y-1">
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-black text-lg py-3 px-6 md:py-4 md:px-10 rounded-full btn-comic uppercase tracking-wider transform transition hover:-translate-y-1 w-full md:w-auto">
                         Join The Movement
                     </button>
                     <button onclick="window.location.href='https://t.me/degensteveonsol'"
-                        class="bg-white hover:bg-slate-50 text-slate-900 border-2 border-slate-900 font-black text-lg py-4 px-10 rounded-full btn-comic uppercase tracking-wider transform transition hover:-translate-y-1">
+                        class="bg-white hover:bg-slate-50 text-slate-900 border-2 border-slate-900 font-black text-lg py-3 px-6 md:py-4 md:px-10 rounded-full btn-comic uppercase tracking-wider transform transition hover:-translate-y-1 w-full md:w-auto">
                         Chart
                     </button>
                 </div>
@@ -146,8 +162,8 @@
     </section>
 
     <section
-        class="bg-white py-24 px-6 border-b-4 border-slate-900 relative z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        class="bg-white py-12 md:py-24 px-6 border-b-4 border-slate-900 relative z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center">
 
             <div class="flex justify-center order-2 lg:order-1 relative">
                 <div
@@ -155,77 +171,86 @@
                 </div>
 
                 <img src="images/meditating.png" alt="Meditating Steve"
-                    class="w-full max-w-lg lg:max-w-xl drop-shadow-2xl transform hover:scale-105 transition duration-500 z-10">
+                    class="w-full max-w-xs md:max-w-lg lg:max-w-xl drop-shadow-2xl transform hover:scale-105 transition duration-500 z-10">
             </div>
 
-            <div class="space-y-8 order-1 lg:order-2">
-                <h2 class="text-5xl lg:text-6xl font-black uppercase tracking-tight text-slate-900">What is $STEVE?</h2>
-                <p class="text-2xl font-medium text-slate-600 leading-relaxed">
+            <div class="space-y-6 md:space-y-8 order-1 lg:order-2 text-center md:text-left">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-slate-900">What is
+                    $STEVE?</h2>
+                <p class="text-lg md:text-2xl font-medium text-slate-600 leading-relaxed">
                     $STEVE is the official <span class="text-blue-600 font-bold bg-blue-50 px-2 rounded">New Year
                         Transformation Meme</span> for
                     Solana.
                 </p>
-                <div class="space-y-4 font-bold text-xl text-slate-800">
+                <div class="space-y-4 font-bold text-lg md:text-xl text-slate-800 text-left">
                     <div class="flex items-center gap-4 group">
-                        <span class="text-3xl bg-green-100 p-3 rounded-xl group-hover:scale-110 transition">🔄</span>
+                        <span
+                            class="text-2xl md:text-3xl bg-green-100 p-2 md:p-3 rounded-xl group-hover:scale-110 transition">🔄</span>
                         <span>Renewal</span>
                     </div>
                     <div class="flex items-center gap-4 group">
-                        <span class="text-3xl bg-blue-100 p-3 rounded-xl group-hover:scale-110 transition">🚀</span>
+                        <span
+                            class="text-2xl md:text-3xl bg-blue-100 p-2 md:p-3 rounded-xl group-hover:scale-110 transition">🚀</span>
                         <span>Momentum</span>
                     </div>
                     <div class="flex items-center gap-4 group">
-                        <span class="text-3xl bg-yellow-100 p-3 rounded-xl group-hover:scale-110 transition">🏆</span>
+                        <span
+                            class="text-2xl md:text-3xl bg-yellow-100 p-2 md:p-3 rounded-xl group-hover:scale-110 transition">🏆</span>
                         <span>Self-Improvement</span>
                     </div>
                 </div>
-                <p class="text-lg text-slate-500 italic border-l-4 border-blue-600 pl-6 py-2 bg-slate-50 rounded-r-xl">
+                <p
+                    class="text-base md:text-lg text-slate-500 italic border-l-4 border-blue-600 pl-6 py-2 bg-slate-50 rounded-r-xl text-left">
                     "A fresh start for degenerates, dreamers, and grinders."
                 </p>
             </div>
         </div>
     </section>
 
-    <section class="bg-steve-dark text-white py-32 px-6">
+    <section class="bg-steve-dark text-white py-16 md:py-32 px-6">
         <div class="max-w-7xl mx-auto">
             <h2
-                class="text-center text-5xl md:text-6xl font-black mb-20 uppercase tracking-wide text-white drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                class="text-center text-4xl md:text-6xl font-black mb-10 md:mb-20 uppercase tracking-wide text-white drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
                 The Lore</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-11 gap-8 items-center">
 
                 <div
-                    class="md:col-span-5 relative arrow-flow bg-slate-800 p-8 rounded-3xl border border-slate-700 hover:border-red-500/50 transition duration-300 shadow-2xl h-full flex flex-col">
+                    class="md:col-span-5 relative arrow-flow bg-slate-800 p-6 md:p-8 rounded-3xl border border-slate-700 hover:border-red-500/50 transition duration-300 shadow-2xl h-full flex flex-col">
                     <div class="w-full aspect-video rounded-xl overflow-hidden mb-6 bg-black">
                         <img src="images/old steve.jpg"
                             class="w-full h-full object-cover opacity-80 hover:opacity-100 transition duration-500 hover:scale-105">
                     </div>
                     <div class="mt-auto">
-                        <strong class="text-red-400 text-2xl block mb-2 uppercase tracking-wider font-black">The Old
+                        <strong
+                            class="text-red-400 text-xl md:text-2xl block mb-2 uppercase tracking-wider font-black">The
+                            Old
                             Steve</strong>
-                        <p class="text-slate-300 text-lg leading-relaxed">
+                        <p class="text-slate-300 text-base md:text-lg leading-relaxed">
                             Fumbling entries. Missing pumps. Living in a messy room. He spent the last cycle coping in
                             silence.
                         </p>
                     </div>
                 </div>
 
-                <div class="md:col-span-1 flex justify-center py-12 md:py-0 relative z-20">
+                <div class="md:col-span-1 flex justify-center py-6 md:py-0 relative z-20">
                     <div
-                        class="text-7xl animate-pulse filter drop-shadow-[0_0_25px_rgba(255,215,0,0.6)] transform hover:rotate-12 transition cursor-pointer">
+                        class="text-5xl md:text-7xl animate-pulse filter drop-shadow-[0_0_25px_rgba(255,215,0,0.6)] transform hover:rotate-12 transition cursor-pointer">
                         🎆</div>
                 </div>
 
                 <div
-                    class="md:col-span-5 bg-blue-900/40 p-8 rounded-3xl border border-blue-500 hover:border-blue-300 transition duration-300 shadow-[0_0_40px_rgba(37,99,235,0.15)] h-full flex flex-col">
+                    class="md:col-span-5 bg-blue-900/40 p-6 md:p-8 rounded-3xl border border-blue-500 hover:border-blue-300 transition duration-300 shadow-[0_0_40px_rgba(37,99,235,0.15)] h-full flex flex-col">
                     <div class="w-full aspect-video rounded-xl overflow-hidden mb-6 bg-black">
                         <img src="images/new steve.jpg"
                             class="w-full h-full object-cover hover:scale-105 transition duration-500">
                     </div>
                     <div class="mt-auto">
-                        <strong class="text-blue-300 text-2xl block mb-2 uppercase tracking-wider font-black">The New
+                        <strong
+                            class="text-blue-300 text-xl md:text-2xl block mb-2 uppercase tracking-wider font-black">The
+                            New
                             Steve</strong>
-                        <p class="text-blue-50 text-lg leading-relaxed">
+                        <p class="text-blue-50 text-base md:text-lg leading-relaxed">
                             "I'm done being the old me." He shaved the beard, cleaned the room, and walked into 2026
                             reborn.
                         </p>
@@ -236,32 +261,33 @@
         </div>
     </section>
 
-    <section class="bg-white py-32 px-6 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+    <section class="bg-white py-16 md:py-32 px-6 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-center text-5xl md:text-6xl font-black mb-20 uppercase text-slate-900">Why Steve?</h2>
+            <h2 class="text-center text-4xl md:text-6xl font-black mb-10 md:mb-20 uppercase text-slate-900">Why Steve?
+            </h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20">
                 <div
-                    class="text-center space-y-6 bg-slate-50 p-12 rounded-[2.5rem] border-2 border-slate-100 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300">
+                    class="text-center space-y-6 bg-slate-50 p-8 md:p-12 rounded-[2.5rem] border-2 border-slate-100 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300">
                     <div
-                        class="w-32 h-32 mx-auto bg-blue-100 rounded-full flex items-center justify-center border-[6px] border-slate-900 shadow-md overflow-hidden">
+                        class="w-24 h-24 md:w-32 md:h-32 mx-auto bg-blue-100 rounded-full flex items-center justify-center border-[6px] border-slate-900 shadow-md overflow-hidden">
                         <img src="images/face.png" class="w-full h-full object-cover">
                     </div>
-                    <h3 class="text-3xl font-black uppercase text-slate-900">Relatability</h3>
-                    <p class="text-slate-600 text-xl font-medium leading-relaxed">
+                    <h3 class="text-2xl md:text-3xl font-black uppercase text-slate-900">Relatability</h3>
+                    <p class="text-slate-600 text-lg md:text-xl font-medium leading-relaxed">
                         Because everyone relates to him. Everyone has said "New Year, New Me". Steve is the meme of
                         universal renewal.
                     </p>
                 </div>
 
                 <div
-                    class="text-center space-y-6 bg-slate-50 p-12 rounded-[2.5rem] border-2 border-slate-100 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300">
+                    class="text-center space-y-6 bg-slate-50 p-8 md:p-12 rounded-[2.5rem] border-2 border-slate-100 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300">
                     <div
-                        class="w-32 h-32 mx-auto bg-blue-600 rounded-full flex items-center justify-center border-[6px] border-slate-900 text-white shadow-md overflow-hidden">
+                        class="w-24 h-24 md:w-32 md:h-32 mx-auto bg-blue-600 rounded-full flex items-center justify-center border-[6px] border-slate-900 text-white shadow-md overflow-hidden">
                         <img src="images/movement.png" class="w-full h-full object-cover">
                     </div>
-                    <h3 class="text-3xl font-black uppercase text-slate-900">The Movement</h3>
-                    <p class="text-slate-600 text-xl font-medium leading-relaxed">
+                    <h3 class="text-2xl md:text-3xl font-black uppercase text-slate-900">The Movement</h3>
+                    <p class="text-slate-600 text-lg md:text-xl font-medium leading-relaxed">
                         This isn't just a chart. It's a challenge. We are the "New Me Army". We show up. We stay
                         disciplined. We hold the floor.
                     </p>
@@ -270,14 +296,16 @@
         </div>
     </section>
 
-    <section class="bg-steve-blue text-white py-24 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            <div class="flex-1 space-y-8 text-center md:text-left">
-                <h2 class="text-5xl font-black uppercase text-yellow-400 drop-shadow-md">The Promise</h2>
-                <p class="text-blue-100 text-xl leading-relaxed">
+    <section class="bg-steve-blue text-white py-16 md:py-24 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16">
+            <div class="flex-1 space-y-8 text-center md:text-left order-2 md:order-1">
+                <h2 class="text-4xl md:text-5xl font-black uppercase text-yellow-400 drop-shadow-md">The Promise</h2>
+                <p class="text-blue-100 text-lg md:text-xl leading-relaxed">
                     Steve will evolve throughout the year. New art. New lore. New phases.
                     <br><br>
-                    <strong class="text-white text-2xl bg-blue-800/50 px-4 py-2 rounded-lg inline-block">Start your
+                    <strong
+                        class="text-white text-xl md:text-2xl bg-blue-800/50 px-4 py-2 rounded-lg inline-block">Start
+                        your
                         reset. Become the new you with $STEVE.</strong>
                 </p>
 
@@ -306,7 +334,7 @@
                 </div>
 
             </div>
-            <div class="flex-1">
+            <div class="flex-1 order-1 md:order-2">
                 <img src="images/the promise.png"
                     class="rounded-2xl border-4 border-blue-400 shadow-2xl rotate-1 hover:rotate-0 transition duration-500 w-full transform hover:scale-105">
             </div>
