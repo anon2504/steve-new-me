@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Protocol: Discipline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700;900&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #020617;
+            background-image: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+        }
+
+        .tech-font {
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .glitch-text {
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5), -1px -1px 0 #2563eb;
+        }
+
+        #steveBg {
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            /* Goldilocks settings: Light enough to see, dark enough to be cool */
+            transform: scale(1.02);
+            filter: contrast(1.1) brightness(1.05);
+            transform-origin: center center;
+            will-change: transform;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center p-4 text-white overflow-hidden">
+
+    <div id="captureArea"
+        class="relative w-[350px] h-[450px] bg-slate-900 border-2 border-slate-700 rounded-xl overflow-hidden shadow-2xl shrink-0">
+
+        <div class="absolute top-0 left-0 w-6 h-6 border-t-4 border-l-4 border-yellow-400 z-30 pointer-events-none">
+        </div>
+        <div class="absolute top-0 right-0 w-6 h-6 border-t-4 border-r-4 border-yellow-400 z-30 pointer-events-none">
+        </div>
+        <div class="absolute bottom-0 left-0 w-6 h-6 border-b-4 border-l-4 border-yellow-400 z-30 pointer-events-none">
+        </div>
+        <div class="absolute bottom-0 right-0 w-6 h-6 border-b-4 border-r-4 border-yellow-400 z-30 pointer-events-none">
+        </div>
+
+        <div
+            class="absolute top-0 left-0 right-0 bg-black/80 h-12 border-b border-slate-600 flex justify-between items-center px-4 z-20">
+            <span class="text-xs text-blue-300 tech-font tracking-widest flex items-center gap-2">
+                AGENT: <span id="usernameDisplay" class="text-white font-bold text-sm">@UNKNOWN</span>
+            </span>
+
+            <div class="flex gap-1.5">
+                <div class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+            </div>
+        </div>
+
+        <div class="relative w-full h-full pt-12 pb-8 overflow-hidden">
+
+            <div id="steveBg" class="absolute inset-0 w-full h-full z-0"></div>
+
+            <div class="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
+
+            <div class="absolute inset-0 bg-blue-900/10 z-10 pointer-events-none"></div>
+
+            <div
+                class="absolute bottom-0 left-0 right-0 h-56 bg-gradient-to-t from-black via-black/90 to-transparent z-10 pointer-events-none">
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 z-20 px-6 pb-8">
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <p class="text-blue-400 text-[10px] font-bold tracking-[0.2em] mb-1 uppercase">Current Status
+                        </p>
+                        <h2 id="statusText" class="text-3xl font-black italic text-white leading-none drop-shadow-lg">
+                            LOCKED IN</h2>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-blue-400 text-[10px] font-bold tracking-[0.2em] mb-0 uppercase">Streak</p>
+                        <div class="flex items-baseline gap-1 justify-end">
+                            <span id="streakCount"
+                                class="text-6xl font-black text-yellow-400 glitch-text leading-none">0</span>
+                            <span class="text-xl font-bold text-yellow-400/80">DAYS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-white/20 pt-2 flex justify-between items-center opacity-70 mb-2">
+                    <span class="text-[9px] tech-font text-blue-200">SECURE CHANNEL // 2026</span>
+                    <span class="text-[9px] tech-font text-blue-200">REC #<span id="recordId">0000</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="absolute bottom-0 w-full bg-yellow-400 text-black text-[9px] font-black py-1.5 text-center tracking-[0.3em] uppercase z-30">
+            Official 2026 Reset Protocol // $STEVE
+        </div>
+    </div>
+
+    <div class="w-full max-w-[350px] mt-6 space-y-3">
+        <button onclick="handleNativeShare()" id="shareBtn"
+            class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 rounded-xl shadow-lg shadow-blue-900/50 flex items-center justify-center gap-2 transition active:scale-95 border border-blue-400">
+            <span class="text-xl">🚀</span>
+            <span id="btnText">SHARE STREAK</span>
+        </button>
+
+        <button onclick="handleTwitterShare()"
+            class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl border border-slate-600 flex items-center justify-center gap-2 text-sm transition">
+            <span class="text-lg">𝕏</span> POST FLEX ON X
+        </button>
+
+        <p class="text-center text-slate-500 text-[10px] uppercase tracking-widest opacity-60">
+            Desktop/Android: Use 'Post on X' to download
+        </p>
+
+        <button onclick="tg.close()" class="w-full text-slate-500 text-xs py-2 hover:text-white transition">
+            Close Interface
+        </button>
+    </div>
+
+    <script>
+        // CONFIG
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        // 1. Get URL Params
+        const params = new URLSearchParams(window.location.search);
+        const username = params.get('username') || 'Anon';
+        const streak = parseInt(params.get('streak')) || 0;
+        const status = params.get('status') || 'clean';
+
+        // 2. Hydrate UI
+        document.getElementById('usernameDisplay').innerText = "@" + username.toUpperCase();
+        document.getElementById('streakCount').innerText = streak;
+        document.getElementById('recordId').innerText = Math.floor(Math.random() * 9000) + 1000;
+
+        // 3. Set Background & Logic
+        const bgDiv = document.getElementById('steveBg');
+        if (streak === 0 || status === 'dirty') {
+            bgDiv.style.backgroundImage = "url('images/old steve.jpg')";
+            document.getElementById('streakCount').classList.replace('text-yellow-400', 'text-red-500');
+            const statusText = document.getElementById('statusText');
+            statusText.innerText = "RELAPSING";
+            statusText.classList.add('text-red-500');
+        } else {
+            bgDiv.style.backgroundImage = "url('images/new steve.jpg')";
+        }
+
+        // --- CORE FUNCTIONS ---
+
+        // Helper: Generate Share Text
+        function getShareText() {
+            if (streak > 0) {
+                return `I have been locked in for ${streak} days.\n\nOld me is dead. 2026 is loading.\n\nJoin the reset: @degenstevesol $STEVE`;
+            } else {
+                return `I relapsed. The protocol is resetting.\n\nWeakness is leaving the body. 2026 is still coming.\n\nJoin the reset: @degenstevesol $STEVE`;
+            }
+        }
+
+        async function getCardBlob() {
+            const canvas = await html2canvas(document.getElementById('captureArea'), {
+                scale: 3, useCORS: true, backgroundColor: '#020617', logging: false
+            });
+            return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        }
+
+        async function getCardDataURL() {
+            const canvas = await html2canvas(document.getElementById('captureArea'), {
+                scale: 3, useCORS: true, backgroundColor: '#020617', logging: false
+            });
+            return canvas.toDataURL('image/png');
+        }
+
+        // 1. Native Share (Mobile Preferred)
+        async function handleNativeShare() {
+            const btnText = document.getElementById('btnText');
+            const originalText = btnText.innerText;
+            btnText.innerText = "GENERATING...";
+
+            try {
+                const blob = await getCardBlob();
+                const file = new File([blob], `steve-streak-${Date.now()}.png`, { type: "image/png" });
+                const shareText = getShareText();
+
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({ text: shareText, files: [file] });
+                    btnText.innerText = "SHARED!";
+                } else {
+                    alert("Native sharing blocked by browser. Please use 'Post on X' to save image.");
+                    btnText.innerText = originalText;
+                }
+            } catch (err) {
+                console.log("Share failed", err);
+                btnText.innerText = originalText;
+            }
+            setTimeout(() => btnText.innerText = originalText, 2000);
+        }
+
+        // 2. Twitter Share + Download (Robust Fallback)
+        async function handleTwitterShare() {
+            // A. Trigger Download
+            try {
+                const dataUrl = await getCardDataURL();
+                const link = document.createElement('a');
+                link.download = `steve-streak-${streak}days-${Date.now()}.png`;
+                link.href = dataUrl;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } catch (e) {
+                console.log("Download failed, proceeding to tweet");
+            }
+
+            // B. Open Twitter
+            const shareText = getShareText();
+            const twitterUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText);
+            setTimeout(() => { window.open(twitterUrl, '_blank'); }, 500);
+        }
+    </script>
+</body>
+
+</html>
